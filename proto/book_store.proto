@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_package = "vn.duclv.generated.bookstore";
+option java_multiple_files = true;
+
+package bookstore;
+
+message Book {
+  int32 book_id = 1;
+  string title = 2;
+  float price = 3;
+  int32 pages = 4;
+  int32 author_id = 5;
+}
+
+message Author {
+  int32 author_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string gender = 4;
+  repeated int32 book_id = 5;
+}
+
+//get author by book
+message GetAuthorByBookIdRequest{
+  int32 book_id = 1;
+}
+
+//get book by author
+message GetBooksByAuthorIdRequest{
+  int32 author_id = 1;
+}
+
+message GetBooksByAuthorIdResponse{
+  repeated Book book = 1;
+}
+
+service BookStore {
+
+  rpc getAuthorByBookId(GetAuthorByBookIdRequest) returns(Author){}
+  rpc GetBooksByAuthorId(GetBooksByAuthorIdRequest) returns(GetBooksByAuthorIdResponse){}
+}
